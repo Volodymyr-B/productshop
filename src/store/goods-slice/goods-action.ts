@@ -7,10 +7,10 @@ import {
   goodsFetchingError,
 } from "./goods-slice";
 
-export const goodsFetch = () => async (dispatch: AppDispatch) => {
+export const goodsFetch = () => (dispatch: AppDispatch) => {
   try {
     dispatch(goodsFetching());
-    await fetch(baseURL)
+    fetch(baseURL)
       .then((res) => res.json())
       .then((data) => dispatch(goodsFetchingSuccess(data.products)));
   } catch (e) {
@@ -19,10 +19,10 @@ export const goodsFetch = () => async (dispatch: AppDispatch) => {
 };
 
 export const filteredGoodsFetch =
-  (selectVal: string) => async (dispatch: AppDispatch) => {
+  (selectVal: string) => (dispatch: AppDispatch) => {
     try {
       dispatch(goodsFetching());
-      await fetch(`${baseURL}/category/${selectVal}`)
+      fetch(`${baseURL}/category/${selectVal}`)
         .then((res) => res.json())
         .then((data) => dispatch(goodsFetchingSuccess(data.products)));
     } catch (e) {
@@ -30,10 +30,10 @@ export const filteredGoodsFetch =
     }
   };
 export const searchGoodsFetch =
-  (inputVal: string) => async (dispatch: AppDispatch) => {
+  (inputVal: string) => (dispatch: AppDispatch) => {
     try {
       dispatch(goodsFetching());
-      await fetch(`${baseURL}/search?q=${inputVal}`)
+      fetch(`${baseURL}/search?q=${inputVal}`)
         .then((res) => res.json())
         .then((data) => dispatch(goodsFetchingSuccess(data.products)));
     } catch (e) {
@@ -41,9 +41,9 @@ export const searchGoodsFetch =
     }
   };
 export const deleteGoodsFetch =
-  (productID: string) => async (dispatch: AppDispatch) => {
+  (productID: string) => (dispatch: AppDispatch) => {
     try {
-      await fetch(`${baseURL}/${productID}`, { method: "DELETE" })
+      fetch(`${baseURL}/${productID}`, { method: "DELETE" })
         .then((res) => res.json())
         .then((data) => alert(`${data.title} was successfully deleted`));
     } catch (e) {
@@ -51,9 +51,9 @@ export const deleteGoodsFetch =
     }
   };
 export const createGoodsFetch =
-  (product: DTOOut) => async (dispatch: AppDispatch) => {
+  (product: DTOOut) => (dispatch: AppDispatch) => {
     try {
-      await fetch(`${baseURL}/add`, {
+      fetch(`${baseURL}/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
